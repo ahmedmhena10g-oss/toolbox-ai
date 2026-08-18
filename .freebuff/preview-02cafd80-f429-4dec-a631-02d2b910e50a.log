@@ -1,0 +1,48 @@
+
+> toolbox-ai@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.23
+   - Local:        http://localhost:55838
+   - Network:      http://192.168.1.2:55838
+
+ ✓ Starting...
+ ✓ Ready in 3.8s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1026ms (116 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 8.9s (1065 modules)
+ GET /en 200 in 11532ms
+ GET /en 200 in 424ms
+ GET /ar 200 in 440ms
+ ○ Compiling /[locale]/tools ...
+ ✓ Compiled /[locale]/tools in 1320ms (1075 modules)
+ GET /ar/tools 200 in 3378ms
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 777ms (1084 modules)
+ GET /sitemap.xml 200 in 1046ms
+ GET /en 200 in 933ms
+ GET /en 200 in 332ms
+ GET /ar 200 in 303ms
+ GET /ar 200 in 990ms
+ GET /favicon.ico 404 in 736ms
+ ○ Compiling /[locale]/[category] ...
+ ✓ Compiled /[locale]/[category] in 1780ms (1060 modules)
+ GET /ar/image-tools 200 in 3399ms
+ GET /ar/image-tools 200 in 996ms
+ GET /ar 200 in 785ms
+ GET /ar/pdf-tools 200 in 278ms
+ ○ Compiling /[locale]/tools/[slug] ...
+ ✓ Compiled /[locale]/tools/[slug] in 22.6s (2447 modules)
+ GET /ar/tools/png-to-pdf 200 in 27925ms
+ GET /ar 200 in 2815ms
+ GET /ar/ai-tools 200 in 685ms
+ GET /ar/tools/translator 200 in 501ms
+ GET /ar/developer-tools 200 in 463ms
+ GET /ar 200 in 1836ms
+ GET /ar 200 in 1564ms
+ GET /ar 200 in 262ms
+ ○ Compiling /[locale]/tools ...
+ ✓ Compiled /[locale]/tools in 3.1s (1422 modules)
+ GET /ar/tools 200 in 7631ms
+ GET /ar/tools 200 in 3137ms

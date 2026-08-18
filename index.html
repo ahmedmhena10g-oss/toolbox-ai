@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToolBox AI — أدوات مجانية على الإنترنت للجميع</title>
+  <meta name="description" content="حوّل، اضغط، عدّل، حلّل وحوّل ملفاتك مباشرة في متصفحك. أدوات مجانية للصور وPDF والنصوص والألوان والمزيد." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #6366f1;
+      --brand-light: #818cf8;
+      --brand-dark: #4f46e5;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-dark: #0f172a;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 1rem;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .dark {
+      --bg: #0f172a;
+      --bg-card: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.85);
+    }
+    .dark .header { background: rgba(15,23,42,0.85); }
+    .header-inner {
+      max-width: 80rem; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.25rem; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--brand), var(--violet)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
+    .header-actions { display: flex; align-items: center; gap: 0.5rem; }
+    .btn-icon {
+      width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      transition: all 0.2s;
+    }
+    .btn-icon:hover { border-color: var(--brand); color: var(--brand); }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+    }
+    .dark .hero { background: linear-gradient(180deg, rgba(79,70,229,0.15) 0%, var(--bg) 100%); }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      padding: 0.375rem 1rem; border-radius: 999px;
+      background: rgba(99,102,241,0.1); color: var(--brand);
+      font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(99,102,241,0.2);
+    }
+    .hero h1 {
+      margin-top: 1.5rem; font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .hero h1 span { background: linear-gradient(135deg, var(--brand), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub {
+      margin-top: 1rem; font-size: 1.1rem; color: var(--text-muted);
+      max-width: 40rem; margin-left: auto; margin-right: auto;
+    }
+
+    /* Search */
+    .search-box {
+      margin-top: 2rem; max-width: 36rem; margin-left: auto; margin-right: auto;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%; padding: 0.875rem 1.25rem 0.875rem 3rem;
+      border-radius: 0.75rem; border: 2px solid var(--border);
+      background: var(--bg-card); color: var(--text);
+      font-size: 1rem; font-family: inherit; outline: none; transition: border 0.2s;
+    }
+    .search-box input:focus { border-color: var(--brand); }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-icon {
+      position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 1.1rem;
+    }
+    .hero-links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+      margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);
+    }
+    .hero-links a {
+      padding: 0.25rem 0.75rem; border-radius: 999px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-weight: 500; color: var(--brand); transition: all 0.2s;
+    }
+    .hero-links a:hover { background: #eef2ff; border-color: var(--brand); }
+    .dark .hero-links a:hover { background: rgba(79,70,229,0.2); }
+
+    /* Quick Links */
+    .quick-links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .quick-links a {
+      padding: 0.5rem 1rem; border-radius: 0.75rem;
+      border: 1px solid var(--border); background: var(--bg-card);
+      font-size: 0.85rem; font-weight: 500; box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .quick-links a:hover { border-color: var(--brand); color: var(--brand); transform: translateY(-2px); }
+
+    /* Container */
+    .container { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Section */
+    .section { padding: 3rem 0; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.5rem; }
+    .section-header h2 { font-size: 1.5rem; font-weight: 700; }
+    .section-header a { font-size: 0.85rem; font-weight: 600; color: var(--brand); }
+    .section-header a:hover { text-decoration: underline; }
+    .section-sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* Grid */
+    .grid { display: grid; gap: 1rem; }
+    .grid-4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+
+    /* Category Card */
+    .cat-card {
+      display: block; padding: 1.5rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--bg-card);
+      box-shadow: var(--shadow); transition: all 0.25s;
+    }
+    .cat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--brand); }
+    .cat-icon {
+      width: 48px; height: 48px; border-radius: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .cat-card h3 { font-size: 1rem; font-weight: 700; }
+    .cat-card p { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.375rem; }
+    .cat-link { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.75rem; font-size: 0.75rem; font-weight: 600; color: var(--brand); }
+
+    /* Tool Card */
+    .tool-card {
+      display: block; padding: 1.25rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--bg-card);
+      box-shadow: var(--shadow); transition: all 0.25s;
+    }
+    .tool-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--brand); }
+    .tool-card h3 { font-size: 0.9rem; font-weight: 600; }
+    .tool-card p { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem; }
+    .tool-tag {
+      display: inline-block; margin-top: 0.5rem; padding: 0.125rem 0.5rem;
+      border-radius: 999px; font-size: 0.65rem; font-weight: 600;
+      background: rgba(99,102,241,0.1); color: var(--brand);
+    }
+
+    /* Benefits */
+    .benefits { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 0; }
+    .benefit-card { padding: 1.5rem; text-align: center; }
+    .benefit-icon {
+      width: 44px; height: 44px; border-radius: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin: 0 auto;
+    }
+    .benefit-card h3 { margin-top: 0.75rem; font-weight: 700; }
+    .benefit-card p { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; padding: 1rem 0; background: none; border: none;
+      text-align: right; cursor: pointer; font-size: 0.95rem; font-weight: 600;
+      font-family: inherit; color: var(--text); display: flex;
+      align-items: center; justify-content: space-between;
+    }
+    .faq-q::after { content: '+'; font-size: 1.2rem; color: var(--brand); transition: transform 0.2s; }
+    .faq-q.open::after { content: '−'; }
+    .faq-a { padding: 0 0 1rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; display: none; }
+    .faq-a.show { display: block; }
+
+    /* Footer */
+    .footer {
+      background: var(--bg-dark); color: #94a3b8; padding: 3rem 0 1.5rem; font-size: 0.8rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 2rem; }
+    .footer h4 { color: #f1f5f9; font-weight: 700; margin-bottom: 0.75rem; font-size: 0.85rem; }
+    .footer a { display: block; padding: 0.2rem 0; color: #94a3b8; transition: color 0.2s; }
+    .footer a:hover { color: #f1f5f9; }
+    .footer-bottom { border-top: 1px solid #1e293b; margin-top: 2rem; padding-top: 1rem; text-align: center; }
+
+    /* Ad Placeholder */
+    .ad-slot {
+      padding: 1.5rem; border-radius: var(--radius);
+      border: 2px dashed var(--border); background: rgba(99,102,241,0.03);
+      text-align: center; color: var(--text-muted); font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .header-actions .desktop-only { display: none; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">⚡</div>
+        <span>ToolBox <span style="color:var(--brand)">AI</span></span>
+      </a>
+      <div class="header-actions">
+        <a href="#categories" class="btn-icon desktop-only" title="الأدوات" style="width:auto;padding:0 0.75rem;font-size:0.8rem;font-weight:500">الأدوات</a>
+        <a href="#faq" class="btn-icon desktop-only" title="الأسئلة" style="width:auto;padding:0 0.75rem;font-size:0.8rem;font-weight:500">الأسئلة</a>
+        <button class="btn-icon" onclick="toggleLang()" title="العربية / English" id="langBtn">عربي</button>
+        <button class="btn-icon" onclick="toggleDark()" title="وضع ليلي" id="themeBtn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-badge">✨ أدوات مجانية بالكامل</span>
+    <h1>أدوات مجانية على الإنترنت<br>للجميع</h1>
+    <p class="hero-sub">حوّل، اضغط، عدّل، حلّل وحوّل ملفاتك مباشرة في متصفحك — بدون تسجيل وبدون رفع ملفات.</p>
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="ماذا تريد أن تفعل؟ جرّب: ضاغط صور، تحويل PDF، عدّاد كلمات..." id="searchInput" oninput="filterTools(this.value)" />
+    </div>
+    <div class="hero-links">
+      <span>جرب:</span>
+      <a href="#" onclick="filterTools('ضغط');return false">ضغط</a>
+      <a href="#" onclick="filterTools('تحويل');return false">تحويل</a>
+      <a href="#" onclick="filterTools('PDF');return false">PDF</a>
+      <a href="#" onclick="filterTools(' countered');return false">عدّاد كلمات</a>
+      <a href="#" onclick="filterTools('JSON');return false">JSON</a>
+    </div>
+    <div class="quick-links">
+      <a href="#">🖼 ضاغط الصور</a>
+      <a href="#">📄 JPG إلى PDF</a>
+      <a href="#">📑 دمج PDF</a>
+      <a href="#">🔢 عدّاد الكلمات</a>
+      <a href="#">🎨منتقي الألوان</a>
+      <a href="#">🔧 منسّق JSON</a>
+      <a href="#">📊 مولّد الألوان</a>
+      <a href="#">🔐 حماية PDF</a>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>التصنيفات</h2>
+          <p class="section-sub">اختر من 8 فئات تحتوي على أكثر من 55 أداة مجانية</p>
+        </div>
+      </div>
+      <div class="grid grid-4">
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(239,68,68,0.1);color:#ef4444">🖼</div>
+          <h3>أدوات الصور</h3>
+          <p>تحويل، ضغط، قص، تدوير وإزالة الخلفية للصور</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(239,68,68,0.1);color:#ef4444">📄</div>
+          <h3>أدوات PDF</h3>
+          <p>دمج، تقسيم، ضغط، تدوير وحماية ملفات PDF</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b">🔍</div>
+          <h3>أدوات OCR</h3>
+          <p>استخراج النصوص من الصور وملفات PDF بـ 5 لغات</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(16,185,129,0.1);color:#10b981">📝</div>
+          <h3>أدوات النصوص</h3>
+          <p>عدّاد الكلمات، تحويل الحالة، مزيل التكرار والمزيد</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6">🎨</div>
+          <h3>أدوات الألوان</h3>
+          <p>منتقي الألوان، تدرجات، م对比对比度 ولوحات ألوان</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(6,182,212,0.1);color:#06b6d4">🤖</div>
+          <h3>أدوات الذكاء الاصطناعي</h3>
+          <p>تلخيص، إعادة صياغة، ترجمة وتلوين المانجا</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(34,197,94,0.1);color:#22c55e">💻</div>
+          <h3>أدوات المطورين</h3>
+          <p>JSON، Base64، UUID، Timestamp وRegex</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+        <a href="#" class="cat-card">
+          <div class="cat-icon" style="background:rgba(249,115,22,0.1);color:#f97316">🔧</div>
+          <h3>أدوات مساعدة</h3>
+          <p>مولّد QR، حاسبة BPMI، عداد الأحرف والمزيد</p>
+          <span class="cat-link">عرض الأدوات ←</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad -->
+  <div class="container" style="padding:0 1.5rem">
+    <div class="ad-slot">📍 مساحة إعلانية — Google AdSense</div>
+  </div>
+
+  <!-- Popular Tools -->
+  <section class="section" id="popular">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>الأدوات الأكثر شعبية</h2>
+          <p class="section-sub">الأدوات الأكثر استخداماً هذا الأسبوع</p>
+        </div>
+      </div>
+      <div class="grid grid-4" id="toolsGrid">
+        <!-- Image Tools -->
+        <a href="#" class="tool-card" data-cat="صور" data-search="JPG PNG تحويل صورة">
+          <h3>🔄 JPG إلى PNG</h3>
+          <p>تحويل صور JPG إلى PNG بجودة عالية</p>
+          <span class="tool-tag">صور</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="صور" data-search="PNG JPG تحويل صورة">
+          <h3>🔄 PNG إلى JPG</h3>
+          <p>تحويل صور PNG إلى JPG مع خيارات الجودة</p>
+          <span class="tool-tag">صور</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="صور" data-search="ضغط صورة image compressor">
+          <h3>📦 ضاغط الصور</h3>
+          <p>ضغط الصور مع الحفاظ على الجودة — حتى 73% أصغر</p>
+          <span class="tool-tag">صور</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="صور" data-search="تغيير حجم resize صورة">
+          <h3>📐 مغيّر حجم الصور</h3>
+          <p>تغيير حجم الصور مع الحفاظ على النسبة</p>
+          <span class="tool-tag">صور</span>
+        </a>
+        <!-- PDF Tools -->
+        <a href="#" class="tool-card" data-cat="PDF" data-search="دمج PDF merge">
+          <h3>📑 دمج ملفات PDF</h3>
+          <p>دمج عدة ملفات PDF في ملف واحد</p>
+          <span class="tool-tag">PDF</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="PDF" data-search="تقسيم PDF split">
+          <h3>✂️ تقسيم ملفات PDF</h3>
+          <p>استخراج صفحات محددة من ملف PDF</p>
+          <span class="tool-tag">PDF</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="PDF" data-search="ضغط PDF compress">
+          <h3>📦 ضاغط ملفات PDF</h3>
+          <p>تقليل حجم ملفات PDF مع الحفاظ على الجودة</p>
+          <span class="tool-tag">PDF</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="PDF" data-search="حماية PDF password protect">
+          <h3>🔐 حماية PDF بكلمة مرور</h3>
+          <p>إضافة كلمة مرور لحماية ملفات PDF</p>
+          <span class="tool-tag">PDF</span>
+        </a>
+        <!-- Text Tools -->
+        <a href="#" class="tool-card" data-cat="نصوص" data-search="عدّاد كلمات word counter">
+          <h3>🔢 عدّاد الكلمات</h3>
+          <p>عدّ الكلمات والأحرف والجمل والفقرات</p>
+          <span class="tool-tag">نصوص</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="نصوص" data-search="تحويل حالة case converter">
+          <h3>🔄 محوّل حالة النص</h3>
+          <p>UPPERCASE، lowercase، Title Case والمزيد</p>
+          <span class="tool-tag">نصوص</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="نصوص" data-search=" Slug URL رابط">
+          <h3>🔗 مولّد Slug</h3>
+          <p>تحويل العناوين إلى روابط SEO صديقة</p>
+          <span class="tool-tag">نصوص</span>
+        </a>
+        <!-- Color Tools -->
+        <a href="#" class="tool-card" data-cat="ألوان" data-search="منتقي ألوان color picker">
+          <h3>🎨 منتقي الألوان</h3>
+          <p>اختيار الألوان بتنسيق HEX و RGB و HSL</p>
+          <span class="tool-tag">ألوان</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="ألوان" data-search="تدرج gradient">
+          <h3>🌈 مولّد التدرجات</h3>
+          <p>إنشاء تدرجات خطية وشعاعية مع كود CSS</p>
+          <span class="tool-tag">ألوان</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="ألوان" data-search="لوحة ألوان palette">
+          <h3>🎨 مولّد لوحات الألوان</h3>
+          <p>إنشاء لوحات ألوان متناغة ومتناسقة</p>
+          <span class="tool-tag">ألوان</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="ألوان" data-search="对比度 contrast WCAG">
+          <h3>👁 فاحص التباين</h3>
+          <p>فحص نسبة التباين مع معايير WCAG</p>
+          <span class="tool-tag">ألوان</span>
+        </a>
+        <!-- Developer Tools -->
+        <a href="#" class="tool-card" data-cat="مطورين" data-search="JSON formatter منسّق">
+          <h3>🔧 منسّق JSON</h3>
+          <p>تنسيق وتصغير وتحقق من كود JSON</p>
+          <span class="tool-tag">مطورين</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="مطورين" data-search="Base64 encoder">
+          <h3>🔐 مشفّر Base64</h3>
+          <p>تحويل النصوص إلى Base64 والعكس</p>
+          <span class="tool-tag">مطورين</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="مطورين" data-search="UUID generator مولّد">
+          <h3>🆔 مولّد UUID</h3>
+          <p>إنشاء معرّفات فريدة UUID v4</p>
+          <span class="tool-tag">مطورين</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="مطورين" data-search="Timestamp تحويل تاريخ">
+          <h3>⏰ محوّل التوقيت</h3>
+          <p>تحويل Unix timestamps إلى تواريخ مقروءة</p>
+          <span class="tool-tag">مطورين</span>
+        </a>
+        <!-- AI Tools -->
+        <a href="#" class="tool-card" data-cat="ذكاء اصطناعي" data-search="تلخيص summarizer">
+          <h3>🤖 ملخّص النصوص بالذكاء الاصطناعي</h3>
+          <p>تلخيص النصوص الطويلة تلقائياً</p>
+          <span class="tool-tag">ذكاء اصطناعي</span>
+        </a>
+        <a href="#" class="tool-card" data-cat="ذكاء اصطناعي" data-search="ترجمة translator">
+          <h3>🌐 مترجم بالذكاء الاصطناعي</h3>
+          <p>ترجمة النصوص بين عدة لغات</p>
+          <span class="tool-tag">ذكاء اصطناعي</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="benefits">
+    <div class="container">
+      <h2 style="text-align:center;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem">لماذا تستخدم أدواتنا؟</h2>
+      <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-bottom:2rem">كل ما تحتاجه لمعالجة ملفاتك — مجاناً وبدون تسجيل</p>
+      <div class="grid grid-4">
+        <div class="benefit-card">
+          <div class="benefit-icon" style="background:rgba(16,185,129,0.1);color:#10b981">🎁</div>
+          <h3>مجاني بالكامل</h3>
+          <p>جميع الأدوات مجانية بدون حدود أو علامات مائية</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b">⚡</div>
+          <h3>سريع جداً</h3>
+          <p>معالجة فورية مباشرة في متصفحك بدون انتظار</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon" style="background:rgba(139,92,246,0.1);color:#8b5cf6">🔒</div>
+          <h3>خصوصي وآمن</h3>
+          <p>ملفاتك تبقى على جهازك — لا تُرفع لأي خادم</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon" style="background:rgba(99,102,241,0.1);color:#6366f1">✅</div>
+          <h3>بدون تسجيل</h3>
+          <p>لا تحتاج إنشاء حساب — ابدأ استخدام الأدوات فوراً</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container" style="max-width:48rem">
+      <h2 style="text-align:center;font-size:1.5rem;font-weight:700;margin-bottom:2rem">الأسئلة الشائعة</h2>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">هل الأدوات مجانية فعلاً؟</button>
+        <div class="faq-a">نعم — كل أداة على ToolBox AI مجانية تماماً دون تسجيل أو علامات مائية أو حدود خفية. نحافظ على مجانية المنصة عبر إعلانات منفصلة بوضوح وغير مزعجة.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">هل أحتاج إلى إنشاء حساب؟</button>
+        <div class="faq-a">لا. جميع الأدوات الأساسية تعمل فوراً داخل متصفحك. لا يوجد ما تسجل فيه ولا ما تثبته.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">هل ملفاتي آمنة ومحفوظة؟</button>
+        <div class="faq-a">نعم. تقريباً كل المعالجة تتم محلياً في متصفحك. ملفاتك لا تغادر جهازك أبداً. بعض أدوات الذكاء الاصطناعي تستخدم واجهة برمجية آمنة ومُعلَّمة بوضوح.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">هل أستطيع استخدام الأدوات على الهاتف؟</button>
+        <div class="faq-a">بالتأكيد! كل الأدوات متوافقة تماماً مع الهواتف واللوحات وأجهزة الكمبيوتر. الواجهة متجاوبة وتعمل على أي حجم شاشة.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">ما الفرق بين الأدوات المجانية والمدفوعة؟</button>
+        <div class="faq-a">جميع أدواتنا مجانية. لا يوجد أدوات مدفوعة. فقط بعض أدوات الذكاء الاصطناعي المتقدمة قد تتطلب مشاركة مع واجهة برمجية خارجية، وهذه مُعلَّمة بوضوح.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('show')">هل يمكنني اقتراح أداة جديدة؟</button>
+        <div class="faq-a">بالتأكيد! نرحب بالاقتراحات. تواصل معنا عبر صفحة "تواصل معنا" وسنأخذ اقتراحك بعين الاعتبار.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>ToolBox AI</h4>
+          <p style="line-height:1.8;margin-top:0.5rem">منصة أدوات مجانية على الإنترنت للصور وملفات PDF والنصوص والألوان والمزيد. عالج ملفاتك مباشرة في متصفحك — بسرعة وأمان وخصوصية.</p>
+        </div>
+        <div>
+          <h4>الأدوات</h4>
+          <a href="#">أدوات الصور</a>
+          <a href="#">أدوات PDF</a>
+          <a href="#">أدوات النصوص</a>
+          <a href="#">أدوات الألوان</a>
+          <a href="#">أدوات الذكاء الاصطناعي</a>
+          <a href="#">أدوات المطورين</a>
+        </div>
+        <div>
+          <h4>الشركة</h4>
+          <a href="#">من نحن</a>
+          <a href="#">تواصل معنا</a>
+          <a href="#">سياسة الخصوصية</a>
+          <a href="#">شروط الخدمة</a>
+          <a href="#">سياسة الكوكيز</a>
+        </div>
+        <div>
+          <h4>موارد</h4>
+          <a href="#">المدونة</a>
+          <a href="#">الأسئلة الشائعة</a>
+          <a href="#">خريطة الموقع</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ToolBox AI — جميع الحقوق محفوظة. الأدوات تعمل مباشرة في متصفحك.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode
+    function toggleDark() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    // Init theme
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const isDark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (isDark) { document.documentElement.classList.add('dark'); document.getElementById('themeBtn').textContent = '☀️'; }
+    })();
+
+    // Language toggle (demo)
+    let currentLang = 'ar';
+    function toggleLang() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('langBtn').textContent = currentLang === 'ar' ? 'عربي' : 'EN';
+
+      // Simple text swap demo
+      if (currentLang === 'en') {
+        document.querySelector('.hero h1').innerHTML = 'Free Online Tools for <span>Everyone</span>';
+        document.querySelector('.hero-sub').textContent = 'Convert, compress, edit, analyze and transform your files directly in your browser — no sign-up, no uploads.';
+        document.querySelector('.searchBox input, #searchInput').placeholder = 'What do you want to do? Try: image compressor, PDF convert, word counter...';
+      } else {
+        document.querySelector('.hero h1').innerHTML = 'أدوات مجانية على الإنترنت<br>للجميع';
+        document.querySelector('.hero-sub').textContent = 'حوّل، اضغط، عدّل، حلّل وحوّل ملفاتك مباشرة في متصفحك — بدون تسجيل وبدون رفع ملفات.';
+        document.getElementById('searchInput').placeholder = 'ماذا تريد أن تفعل؟ جرّب: ضاغط صور، تحويل PDF، عدّاد كلمات...';
+      }
+    }
+
+    // Search/Filter
+    function filterTools(query) {
+      document.getElementById('searchInput').value = query;
+      const cards = document.querySelectorAll('.tool-card');
+      const q = query.toLowerCase().trim();
+      let visible = 0;
+      cards.forEach(card => {
+        const text = (card.textContent + ' ' + (card.dataset.search || '') + ' ' + (card.dataset.cat || '')).toLowerCase();
+        const show = !q || text.includes(q);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      // Show/hide categories based on filter
+      const catCards = document.querySelectorAll('.cat-card');
+      if (q) catCards.forEach(c => c.style.display = 'none');
+      else catCards.forEach(c => c.style.display = '');
+
+      // Show tools section title
+      const section = document.getElementById('popular');
+      if (q) {
+        section.querySelector('h2').textContent = visible > 0 ? `نتائج البحث: "${query}" (${visible} أداة)` : `لا توجد نتائج لـ "${query}"`;
+      } else {
+        section.querySelector('h2').textContent = 'الأدوات الأكثر شعبية';
+      }
+    }
+  </script>
+</body>
+</html>
